@@ -15,28 +15,36 @@ branches:
 
 env:
 
-    matrix:
-    - RUN_ON_CONTAINER=fedora-rawhide
+    global:
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    #   via the "travis encrypt" command using the project repo's public key
+    - secure: "CxyxRGznNmwAq9MUSbLwMEmA7T45Plq2GqXUNy9AYgOuxd4tHeP73uqSpjvxinxB+OgUS84LtKlr4rd2GpnktjLMAhe3DA2pba90+TXoJvwKzgUdtyZlw2nB899KTJk/rY+Nd4nkmAEeEQZuVhqvaIMSbdm1W9lsc9ZUeFZv1E4="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 addons:
-    
+
     coverity_scan:
-            
+
             project:
-                    
+
             name: anupkumk/servicelog
-            
+
             description: servicelog
-            
+
             build_command: make
-            
+
             # Pattern to match selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
 
             # Take care in resource usage, and consider the build frequency allowances per
-            
+
             # https://scan.coverity.com/faq#frequency
 
             branch_pattern: coverity_scan
+
+    matrix:
+    - RUN_ON_CONTAINER=fedora-rawhide
 
 script:
     - docker build --pull -t ${RUN_ON_CONTAINER} -f servicelog-ci/Dockerfile-${RUN_ON_CONTAINER} . &&
