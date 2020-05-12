@@ -1,6 +1,6 @@
 language: c
-compiler:
- - gcc
+os: linux
+compiler: gcc
 
 branches:
     only:
@@ -9,9 +9,9 @@ branches:
 env:
     global:
         - CROSS=/opt/cross/gcc-8.1.0-nolibc/powerpc64-linux/bin/powerpc64-linux-
-	- HOSTCC=gcc-4.8    
-    	# The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-    	#   via the "travis encrypt" command using the project repo's public key
+        - HOSTCC=gcc-4.8    
+        # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+        # via the "travis encrypt" command using the project repo's public key
     	- secure: "HRa6taDdMq4ETZnSamP5JMYia3ASMIENEfLy4Cnp44rXPDszORdgfMIzYWCsFGt9j57NYKi8lx5BmUVO7kjORrDNRKaj6SDkx9fxEeeq+w11vmybM/Er3FrB00Qf7skn5havjqUhBuvYXaT9XmMSCrc4X+SgLhDC7a/BLLdedUPBSo3WIHUnvFb0/wIa4GC3fBY13j6G2H5sNRO9XtPeF5wnzcfsMQpM6jFXyWFuKyPA53vBVyb1Nw7jCubbFpa9I+H7JiAaEoYuqhK5G2pvXNP1LEhBiEmvful1PS+wxU0jIU8zht8RBdW3dxa0D5i46XaAyMs2q1tXe9ZnFqzfDc6dUVCjjmgXpFCtHSsVx0OS8b5raCqJHel5ZHMKbqHQ0QRlQCsPeXygnJ6aQevtpuOgS0iQde/6O4h4mNtRxM4y1MeUjQj2TJ+3+w0uo7QYmperA66Xa+qNyL/j18zIaWmhnJcWG4DyWn+fEPcePXofc5QWASXZ6ms/NojeOeECKQAnyHudtPcapdggXEjacBW9NsysEpdibqgt+YJUMkufF+F6v5/Vt5Au6KnwqjgG94X2YQCx8c8LSCnczxxZczJQScU7BSLa5+03tBU5ZfubiiQ++ZIwtAO+k1WSqDnvRhyHFRReriSbyrToOmEQ8go4vB4dMWDukg8LRgmVwaM="
 
 sudo: required
@@ -26,7 +26,7 @@ before_install:
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50 &&
         wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/8.1.0/x86_64-gcc-8.1.0-nolibc-powerpc64-linux.tar.xz &&
         sudo mkdir /opt/cross &&
-	sudo tar -C /opt/cross -xvf x86_64-gcc-8.1.0-nolibc-powerpc64-linux.tar.xz
+        sudo tar -C /opt/cross -xvf x86_64-gcc-8.1.0-nolibc-powerpc64-linux.tar.xz
 
 script:
 - echo 'Coverity build'
@@ -35,9 +35,8 @@ addons:
     coverity_scan:
         project:
             name: "anupkumk/servicelog"
-            description: servicelog
-        build_command: make
-	notification_email: anupkumk@linux.vnet.ibm.com
-	build_command_prepend: "cov-configure --comptype gcc --compiler powerpc64-linux-gcc --template; cov-configure --comptype gcc --compiler powerpc64le-linux-gnu-gcc; cov-configure --comptype gcc --compiler arm-linux-gnueabi-gcc; cov-configure --comptype gcc --compiler x86_64-linux-gnu-gcc"
-	build_command: "./bootstrap.sh;./configure;make -j4;make -j4 check"
+            description: "servicelog build via travis"
+        notification_email: anupkumk@linux.vnet.ibm.com
+        build_command_prepend: "cov-configure --comptype gcc --compiler powerpc64-linux-gcc --template; cov-configure --comptype gcc --compiler powerpc64le-linux-gnu-gcc; cov-configure --comptype gcc --compiler arm-linux-gnueabi-gcc; cov-configure --comptype gcc --compiler x86_64-linux-gnu-gcc"
+        build_command: "./bootstrap.sh;./configure;make -j4;make -j4 check"
         branch_pattern: coverity_scan
