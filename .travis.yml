@@ -2,6 +2,10 @@ language: c
 compiler:
  - gcc
 
+branches:
+    only:
+    - coverity_scan
+
 env:
     global:
         - CROSS=/opt/cross/gcc-8.1.0-nolibc/powerpc64-linux/bin/powerpc64-linux-
