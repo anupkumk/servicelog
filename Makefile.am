@@ -27,24 +27,24 @@ sbin_PROGRAMS = src/slog_common_event
 platform_SOURCES = src/platform.c src/platform.h
 
 src_servicelog_SOURCES = src/servicelog_switch.c $(platform_SOURCES)
-src_servicelog_LDADD = -lservicelog -lsqlite3
+#src_servicelog_LDADD = -lservicelog -lsqlite3
 
 src_v1_servicelog_SOURCES = src/servicelog.c $(platform_SOURCES)
-src_v1_servicelog_LDADD = -lservicelog -lsqlite3
+#src_v1_servicelog_LDADD = -lservicelog -lsqlite3
 
 src_v29_servicelog_SOURCES = src/v29_servicelog.c $(platform_SOURCES)
-src_v29_servicelog_LDADD = -lservicelog -lsqlite3
+#src_v29_servicelog_LDADD = -lservicelog -lsqlite3
 
 src_servicelog_notify_SOURCES = src/servicelog_notify.c $(platform_SOURCES)
-src_servicelog_notify_LDADD = -lservicelog -lsqlite3
+#src_servicelog_notify_LDADD = -lservicelog -lsqlite3
 
 src_log_repair_action_SOURCES = src/log_repair_action.c $(platform_SOURCES)
-src_log_repair_action_LDADD = -lservicelog -lsqlite3
+#src_log_repair_action_LDADD = -lservicelog -lsqlite3
 
 src_servicelog_manage_SOURCES = src/v29_servicelog_manage.c $(platform_SOURCES)
-src_servicelog_manage_LDADD = -lservicelog -lsqlite3
+#src_servicelog_manage_LDADD = -lservicelog -lsqlite3
 
 src_slog_common_event_SOURCES = src/slog_common_event.c $(platform_SOURCES)
-src_slog_common_event_LDADD = -lservicelog -lsqlite3
+#src_slog_common_event_LDADD = -lservicelog -lsqlite3
 
 EXTRA_DIST = $(man_MANS) bootstrap.sh
