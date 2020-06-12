@@ -24,7 +24,7 @@ before_install:
         sudo apt-get install -y sqlite-devel bison flex librtas-devel libtool auto make rpm-build git &&
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50 &&
         wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/8.1.0/x86_64-gcc-8.1.0-nolibc-powerpc64-linux.tar.xz &&
-        sudo mkdir /opt/cross &&
+        sudo mkdir -p /opt/cross &&
         sudo tar -C /opt/cross -xvf x86_64-gcc-8.1.0-nolibc-powerpc64-linux.tar.xz
 
 script:
